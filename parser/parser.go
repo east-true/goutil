@@ -3,10 +3,31 @@ package parser
 import (
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"math"
 )
 
 const (
+	BIT16 uint8 = iota
+	BIT32
+	BIT64
+	INT16
+	UINT16
+	INT32
+	UINT32
+	INT64
+	UINT64
+	FLOAT32
+	FLOAT64
+	INT16ARR
+	UINT16ARR
+	INT32ARR
+	UINT32ARR
+	INT64ARR
+	UINT64ARR
+	FLOAT32ARR
+	FLOAT64ARR
+
 	LITTLE_LOWER string = "little"
 	BIG_LOWER    string = "big"
 )
@@ -223,4 +244,89 @@ func (p *Parser) ToFloat64Arr(b []byte) ([]float64, error) {
 	}
 
 	return data, nil
+}
+
+func (p *Parser) ToAnyOf(dataType uint8, b []byte) (any, error) {
+	switch dataType {
+	case BIT16:
+		return fmt.Sprintf("%016b", p.ToInt16(b)), nil
+	case BIT32:
+		return fmt.Sprintf("%032b", p.ToInt32(b)), nil
+	case BIT64:
+		return fmt.Sprintf("%064b", p.ToInt64(b)), nil
+	case INT16:
+		return p.ToInt16(b), nil
+	case UINT16:
+		return p.ToUint16(b), nil
+	case INT32:
+		return p.ToInt32(b), nil
+	case UINT32:
+		return p.ToUint32(b), nil
+	case INT64:
+		return p.ToInt64(b), nil
+	case UINT64:
+		return p.ToUint64(b), nil
+	case FLOAT32:
+		return p.ToFloat32(b), nil
+	case FLOAT64:
+		return p.ToFloat64(b), nil
+	case INT16ARR:
+		data, err := p.ToInt16Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case UINT16ARR:
+		data, err := p.ToUint16Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case INT32ARR:
+		data, err := p.ToInt32Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case UINT32ARR:
+		data, err := p.ToUint32Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case INT64ARR:
+		data, err := p.ToInt64Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case UINT64ARR:
+		data, err := p.ToUint64Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case FLOAT32ARR:
+		data, err := p.ToFloat32Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case FLOAT64ARR:
+		data, err := p.ToFloat64Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	default:
+		return nil, errors.New("Not Supported Data Type")
+	}
 }
