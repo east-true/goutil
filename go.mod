@@ -1,3 +1,3 @@
-module github.com/east-true/util-go
+module etutil
 
 go 1.20
