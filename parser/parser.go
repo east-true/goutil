@@ -6,18 +6,16 @@ import (
 	"math"
 )
 
-type BYTE_ORDER string
-
 const (
-	ORDER_LITTLE BYTE_ORDER = "little"
-	ORDER_BIG    BYTE_ORDER = "big"
+	LITTLE_LOWER string = "little"
+	BIG_LOWER    string = "big"
 )
 
 type Parser struct {
-	order BYTE_ORDER
+	order string
 }
 
-func New(order BYTE_ORDER) *Parser {
+func New(order string) *Parser {
 	return &Parser{
 		order: order,
 	}
@@ -46,7 +44,7 @@ func (p *Parser) ToBitArr(datum []byte) []uint8 {
 }
 
 func (p *Parser) ToInt16(b []byte) int16 {
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		return int16(binary.BigEndian.Uint16(b))
 	} else {
 		return int16(binary.LittleEndian.Uint16(b))
@@ -68,7 +66,7 @@ func (p *Parser) ToInt16Arr(b []byte) ([]int16, error) {
 }
 
 func (p *Parser) ToUint16(b []byte) uint16 {
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		return binary.BigEndian.Uint16(b)
 	} else {
 		return binary.LittleEndian.Uint16(b)
@@ -90,7 +88,7 @@ func (p *Parser) ToUint16Arr(b []byte) ([]uint16, error) {
 }
 
 func (p *Parser) ToInt32(b []byte) int32 {
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		return int32(binary.BigEndian.Uint32(b))
 	} else {
 		return int32(binary.LittleEndian.Uint32(b))
@@ -112,7 +110,7 @@ func (p *Parser) ToInt32Arr(b []byte) ([]int32, error) {
 }
 
 func (p *Parser) ToUint32(b []byte) uint32 {
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		return binary.BigEndian.Uint32(b)
 	} else {
 		return binary.LittleEndian.Uint32(b)
@@ -134,7 +132,7 @@ func (p *Parser) ToUint32Arr(b []byte) ([]uint32, error) {
 }
 
 func (p *Parser) ToInt64(b []byte) int64 {
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		return int64(binary.BigEndian.Uint64(b))
 	} else {
 		return int64(binary.LittleEndian.Uint64(b))
@@ -156,7 +154,7 @@ func (p *Parser) ToInt64Arr(b []byte) ([]int64, error) {
 }
 
 func (p *Parser) ToUint64(b []byte) uint64 {
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		return binary.BigEndian.Uint64(b)
 	} else {
 		return binary.LittleEndian.Uint64(b)
@@ -179,7 +177,7 @@ func (p *Parser) ToUint64Arr(b []byte) ([]uint64, error) {
 
 func (p *Parser) ToFloat32(b []byte) float32 {
 	var datum uint32
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		datum = binary.BigEndian.Uint32(b)
 	} else {
 		datum = binary.LittleEndian.Uint32(b)
@@ -204,7 +202,7 @@ func (p *Parser) ToFloat32Arr(b []byte) ([]float32, error) {
 
 func (p *Parser) ToFloat64(b []byte) float64 {
 	var datum uint64
-	if p.order == ORDER_BIG {
+	if p.order == BIG_LOWER {
 		datum = binary.BigEndian.Uint64(b)
 	} else {
 		datum = binary.LittleEndian.Uint64(b)
