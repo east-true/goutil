@@ -28,6 +28,7 @@ const (
 	FLOAT32ARR
 	FLOAT64ARR
 
+	// TODO : add struct of order by, add  ByteParser interface
 	LITTLE_LOWER string = "little"
 	BIG_LOWER    string = "big"
 )
