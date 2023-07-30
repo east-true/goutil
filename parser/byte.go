@@ -41,6 +41,7 @@ type Parser interface {
 	ToFloat32Arr(b []byte) ([]float32, error)
 	ToFloat64(b []byte) float64
 	ToFloat64Arr(b []byte) ([]float64, error)
+	ToInterface(dataType uint8, b []byte) ([]interface{}, error)
 }
 
 func New(order string) Parser {

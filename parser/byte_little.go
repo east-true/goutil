@@ -176,3 +176,83 @@ func (p *LittleByteParser) ToFloat64Arr(b []byte) ([]float64, error) {
 
 	return data, nil
 }
+
+func (p *LittleByteParser) ToInterface(dataType uint8, b []byte) ([]interface{}, error) {
+	var wrapper []interface{}
+	switch dataType {
+	case INT16:
+		return append(wrapper, p.ToInt16(b)), nil
+	case UINT16:
+		return append(wrapper, p.ToUint16(b)), nil
+	case INT32:
+		return append(wrapper, p.ToInt32(b)), nil
+	case UINT32:
+		return append(wrapper, p.ToUint32(b)), nil
+	case INT64:
+		return append(wrapper, p.ToInt64(b)), nil
+	case UINT64:
+		return append(wrapper, p.ToUint64(b)), nil
+	case FLOAT32:
+		return append(wrapper, p.ToFloat32(b)), nil
+	case FLOAT64:
+		return append(wrapper, p.ToFloat64(b)), nil
+	case INT16ARR:
+		data, err := p.ToInt16Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case UINT16ARR:
+		data, err := p.ToUint16Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case INT32ARR:
+		data, err := p.ToInt32Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case UINT32ARR:
+		data, err := p.ToUint32Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case INT64ARR:
+		data, err := p.ToInt64Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case UINT64ARR:
+		data, err := p.ToUint64Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case FLOAT32ARR:
+		data, err := p.ToFloat32Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	case FLOAT64ARR:
+		data, err := p.ToFloat64Arr(b)
+		wrapper := make([]interface{}, len(data))
+		for i := range wrapper {
+			wrapper[i] = data[i]
+		}
+		return wrapper, err
+	default:
+		return nil, errors.New("Not Supported Data Type")
+	}
+}
